@@ -1,0 +1,23 @@
+/*------------------------------------*\
+    MODULE WORKSHEET
+\*------------------------------------*/
+
+.block--title {
+  position: relative;
+  max-width: 938px;
+  margin: 0 auto;
+  padding: 40px 0;
+  &__title {
+    @include typo(title-2);
+    margin: 0 0 20px 0;
+  }
+  &.big {
+    max-width: none;
+    padding-left: 98px;
+    margin-bottom: 60px;
+    .block--title__title {
+      @include typo(title-1);
+      text-transform: lowercase;
+    }
+  }
+}

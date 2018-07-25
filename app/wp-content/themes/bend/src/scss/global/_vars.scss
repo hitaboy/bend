@@ -1,0 +1,62 @@
+/*------------------------------------*\
+    VARS
+\*------------------------------------*/
+
+// HTML LAYOUT
+// ____________________________________
+
+$html_header: 150px;
+
+
+// COLOR PALETTE
+// ____________________________________
+
+$black:            #000 !default;
+$white:            #fff !default;
+$primary:          #0045D0 !default;
+$dark:             #002164 !default;
+$facebook:         #2C4484 !default;
+$google:           #3677F5 !default;
+$greytext:         #9B9B9B !default;
+
+$palette: (
+  "_black":        $black,
+  "_white":        $white,
+  "primary":       $primary,
+  "dark":          $dark,
+  "facebook":      $facebook,
+  "google":        $google,
+  "greytext":      $greytext
+);
+
+
+// FONT SIZES
+// ____________________________________
+$regular: 14px;
+$small: 10px;
+$big: 20px;
+
+$fontsizes: (
+  "regular":      $regular,
+  "small":        $small,
+  "big":          $big
+);
+
+
+// PADDINGS
+// ____________________________________
+
+$padding_regular: 14px;
+$padding_small: 10px;
+$padding_big: 20px;
+
+$paddings: (
+  "regular":      $padding_regular,
+  "small":        $padding_small,
+  "big":          $padding_big
+);
+
+// LETTER-SPACING
+// ____________________________________
+
+$letter_spacing: 0px;

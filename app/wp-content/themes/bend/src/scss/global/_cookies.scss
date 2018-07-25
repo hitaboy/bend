@@ -1,0 +1,31 @@
+/*------------------------------------*\
+    COOKIES
+\*------------------------------------*/
+
+.cookies-advice {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: map-get($palette, primary);
+  width: 100%;
+  font-size: map-get($fontsizes, small);
+  padding: map-get($paddings, small);
+  transform: translate(0,100%);
+  opacity: 0;
+  transition: all 1s;
+  &--active {
+    transform: translate(0,0);
+    opacity: 1;
+  }
+  &__close {
+    position: absolute;
+    top: 50%;
+    right: map-get($paddings, small);
+    transform: translate(0,-50%);
+    cursor: pointer;
+    svg {
+      width: map-get($paddings, small);
+      height: 100%;
+    }
+  }
+}

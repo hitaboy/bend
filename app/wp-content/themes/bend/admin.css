@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Archivo:400');
+
+.mce-content-body {
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size:14px;
+}
+
+.textSize_big {
+  font-size: calc( 1em + 4px );
+}
+.textSize_normal {
+  font-size: 1em;
+}
+.textSize_small {
+  font-size: calc( 1em - 4px );
+}
+
+#edittag {
+  max-width: none;
+}

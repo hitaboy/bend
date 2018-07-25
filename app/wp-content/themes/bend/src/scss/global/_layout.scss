@@ -1,0 +1,52 @@
+/*------------------------------------*\
+    LAYOUT
+\*------------------------------------*/
+
+* {
+  box-sizing: border-box;
+  outline: none;
+  // -webkit-locale: "en";
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  background: map-get($palette, _black);
+  color: map-get($palette, _white);
+  font-family: "Circular-Book";
+  &.noScroll {
+    overflow: hidden;
+  }
+}
+
+.wrapper--global {
+  position: relative;
+  width: 100%;
+}
+
+.wrapper--internal {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.section {
+  &--work {
+    // margin-top: calc( #{$html_header} + 50px );
+    padding-bottom: 50px;
+    .block {
+      position: relative;
+      // width: calc( 100% - 100px );
+      margin: 0 auto;
+      overflow: hidden;
+      background: #000;
+      // margin-bottom: 50px;
+      &:nth-child(1){
+        width: 100%;
+      }
+      &:nth-child(1), &:nth-child(2){
+        margin-bottom: 0;
+      }
+    }
+  }
+}

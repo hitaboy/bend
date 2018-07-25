@@ -1,0 +1,19 @@
+/*------------------------------------*\
+    UTILS
+\*------------------------------------*/
+pre {
+  //display: none;
+}
+.centered {
+  @include centerize('full_centered');
+}
+.hidden {
+  display: none;
+}
+.clearer {
+  clear: both;
+}
+.fitScreen {
+  width: 100%;
+  height: 100vh;
+}

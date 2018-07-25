@@ -1,0 +1,22 @@
+/*------------------------------------*\
+    WORKS & WORK
+\*------------------------------------*/
+.section--works {
+
+}
+
+.work_footer {
+  position: relative;
+  background: map-get($palette, _black);
+  padding: 170px 0 200px 0;
+  &__prev {
+    padding-left: 50px;
+    @include typo(work-prev);
+  }
+  &__next {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    @include typo(title-2);
+  }
+}

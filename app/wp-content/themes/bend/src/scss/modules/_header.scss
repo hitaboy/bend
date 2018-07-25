@@ -1,0 +1,13 @@
+/*------------------------------------*\
+    MODULE HEADER
+\*------------------------------------*/
+
+.block--header {
+  position: relative;
+  background: linear-gradient(#e66465, #9198e5);
+  height: 2000px;
+  &__claim {
+    margin: 0;
+    @include centerize('vh')
+  }
+}

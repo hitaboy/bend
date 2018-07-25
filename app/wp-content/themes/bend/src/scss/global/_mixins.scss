@@ -1,0 +1,91 @@
+/*------------------------------------*\
+    MIXINS
+\*------------------------------------*/
+@mixin centerize($case){
+  @if $case == 'vh' or $case == 'hv' {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  } @elseif $case == 'v' {
+    position: absolute;
+    top: 50%;
+    transform: translate(0,-50%);
+  } @elseif $case == 'h' {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+  }
+}
+
+@mixin breakpoint($breakpoint){
+  @media (max-width: $breakpoint) { @content; }
+}
+@mixin show-for($breakpoint_min,$breakpoint_max){
+  @media only screen and (min-width: $breakpoint_min) and (max-width: $breakpoint_max) {
+    display: block !important;
+  }
+}
+@mixin hide-for($breakpoint_min,$breakpoint_max){
+  @media only screen and (min-width: $breakpoint_min) and (max-width: $breakpoint_max) {
+    display: none !important;
+  }
+}
+
+@mixin typo($case){
+  @if $case == 'standard' {
+    font-family: 'LetterGothicStd-Bold';
+    letter-spacing: $letter_spacing;
+    font-size: 16px;
+    color: map-get($palette, greytext);
+    line-height: 32px;
+  } @elseif $case == 'standard-bold' {
+    font-family: 'LetterGothicStd-Bold';
+    letter-spacing: $letter_spacing;
+    font-size: 18px;
+    color: map-get($palette, _white);
+    line-height: 30px;
+    @include breakpoint(960px) {
+      font-size: 15px;
+      line-height: 24px;
+    }
+  } @elseif $case == 'standard-menu' {
+    font-family: 'LetterGothicStd-Bold';
+    letter-spacing: $letter_spacing;
+    font-size: 18px;
+    color: map-get($palette, greytext);
+    line-height: 30px;
+  } @elseif $case == 'work-prev' {
+    font-family: 'LetterGothicStd-Bold';
+    letter-spacing: $letter_spacing;
+    font-size: 20px;
+    color: map-get($palette, _white);
+    line-height: 1em;
+  } @elseif $case == 'title-1' {
+    font-family: 'Circular-Bold';
+    font-size: 160px;
+    line-height: 81px;
+    letter-spacing: -3px;
+    color: map-get($palette, _white);
+    @include breakpoint(960px) {
+      font-size: 34px;
+    }
+  } @elseif $case == 'title-2' {
+    font-family: 'Circular-Bold';
+    font-size: 70px;
+    line-height: 81px;
+    letter-spacing: -3px;
+    color: map-get($palette, _white);
+    @include breakpoint(960px) {
+      font-size: 34px;
+      letter-spacing: -1px;
+      line-height: 70px;
+    }
+  } @elseif $case == 'mobile_cats' {
+    font-family: 'Circular-Bold';
+    font-size: 18px;
+    line-height: 1em;
+    letter-spacing: 0px;
+    color: map-get($palette, _white);
+  }
+}

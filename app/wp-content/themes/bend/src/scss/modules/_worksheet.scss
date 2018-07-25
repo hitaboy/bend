@@ -1,0 +1,41 @@
+/*------------------------------------*\
+    MODULE WORKSHEET
+\*------------------------------------*/
+
+.block--worksheet {
+  position: relative;
+  max-width: 922px;
+  margin: 0 auto;
+  padding: 70px 0;
+  &__title {
+    font-family: "Circular-Bold";
+    font-size: 70px;
+    line-height: 81px;
+    letter-spacing: -3px;
+    margin: 0 0 95px 0;
+  }
+  &__item {
+    position: relative;
+    margin-bottom: 42px;
+    &__label {
+      position: relative;
+      width: 16%;
+      float: left;
+      @include typo(standard-bold);
+      text-align: right;
+    }
+    &__description {
+      position: relative;
+      width: calc( 83% - 16% );
+      float: left;
+      margin-left: 44px;
+      @include typo(standard);
+    }
+    &:after {
+      content: " ";
+      display: block;
+      position: relative;
+      clear: both;
+    }
+  }
+}

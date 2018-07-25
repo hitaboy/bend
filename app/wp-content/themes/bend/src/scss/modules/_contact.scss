@@ -1,0 +1,44 @@
+/*------------------------------------*\
+    MODULE CONTACT
+\*------------------------------------*/
+
+
+.block--contact {
+  &__columns{
+    display: flex;
+    &__column {
+      margin-top: 40px;
+      flex: 1;
+      &:before {
+        content: "";
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 30px;
+        height: 2px;
+        background: map-get($palette, greytext);
+        display: block;
+      }
+      &__title {
+        @include typo(standard-bold);
+        margin: 10px 0 18px 0;
+        max-width: 240px;
+      }
+      &__text {
+        @include typo(standard);
+        max-width: 260px;
+      }
+      &__bottom {
+        @include typo(standard-bold);
+        max-width: 275px;
+      }
+    }
+    &--bottom {
+      .block--contact__columns__column {
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+}

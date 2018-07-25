@@ -1,0 +1,203 @@
+/*------------------------------------*\
+    HTML HEADER
+\*------------------------------------*/
+
+.html-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $html_header;
+  z-index: 100;
+  transition: background 0.5s;
+  @include breakpoint (1050px) {
+    height: 138px;
+  }
+  @include breakpoint(960px) {
+    height: 120px;
+  }
+  @include breakpoint(420px) {
+    height: 110px;
+  }
+  .html-header__logo {
+    position: absolute;
+    bottom: 58px;
+    left: 100px;
+    display: block;
+    z-index: 10;
+    @include breakpoint(960px) {
+      bottom: 50px;
+      left: 40px;
+      svg {
+        width: 195px;
+      }
+    }
+    @include breakpoint(420px) {
+      left: 20px;
+      svg {
+        width: 170px;
+      }
+    }
+  }
+  .nav {
+    position: absolute;
+    bottom: 55px;
+    left: 406px;
+    ul {
+      li {
+        position: relative;
+        display: inline-block;
+        list-style: none;
+        margin-right: 33px;
+        &:after {
+          content: "";
+          position: absolute;
+          width: 5.4px;
+          height: 5.4px;
+          border-radius: 20px;
+          display: inline-block;
+          background: map-get($palette,_white);
+          transition: background 0.3s;
+          bottom: 8.5px;
+          right: -8px;
+        }
+        a {
+          color: map-get($palette,_white);
+          font-family: "Circular-Bold";
+          font-size: 30px;
+          text-transform: lowercase;
+          transition: color 0.3s;
+        }
+        .sub-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100vw;
+          max-height: 0;
+          padding-top: 7px;
+          overflow: hidden;
+          transition: max-height 1s;
+          li {
+            &:after {
+              display: none;
+            }
+            a {
+              font-size: 20px;
+            }
+          }
+        }
+        &:hover, &.current-menu-ancestor {
+          li.current-menu-item a {
+            color: map-get($palette,primary);
+          }
+          &:after {
+            background: map-get($palette,primary);
+          }
+          >a {
+            transition: color 0.3s;
+            color: map-get($palette,primary);
+          }
+          .sub-menu {
+            max-height: 200px;
+          }
+        }
+      }
+    }
+    @include breakpoint (1050px) {
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      ul.menu {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        li {
+          display: block;
+          margin: 40px 0 0 0;
+          a {
+            font-size: 70px;
+          }
+          .sub-menu, &:after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  &__menu {
+    @include breakpoint (1050px) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: map-get($palette, _black);
+      transform: translate(0,-100%);
+      transition: transform 1s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+      z-index: 9;
+      @for $i from 1 through 5 {
+      // for each $col_#{i}
+        .menu-item:nth-child(#{$i}) {
+          transition: all #{($i / 6)}s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+          transform: translate(-200px,0);
+          opacity: 0;
+        }
+      }
+      &.active {
+        transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        transform: translate(0,0);
+        @for $i from 1 through 5 {
+        // for each $col_#{i}
+          .menu-item:nth-child(#{$i}) {
+            transition: all 0.8s #{(($i / 6)+0.2)}s cubic-bezier(0.19, 1, 0.22, 1);
+            transform: translate(0,0);
+            opacity: 1;
+          }
+        }
+      }
+    }
+    &--mobile {
+      display: none;
+      @include breakpoint (1050px) {
+        position: absolute;
+        top: 56px;
+        right: 104px;
+        width: 41px;
+        height: 18px;
+        background: url('/wp-content/themes/bend/static/img/menu_mobile.svg');
+        display: block;
+        z-index: 10;
+        cursor: pointer;
+      }
+      @include breakpoint (960px) {
+        top: 45px;
+        right: 40px;
+      }
+      @include breakpoint(420px) {
+        top: 32px;
+        right: 20px;
+      }
+    }
+  }
+  &__bullet {
+    position: absolute;
+    top: 56px;
+    right: 104px;
+    width: 29px;
+    height: 29px;
+    border-radius: 33px;
+    background: map-get($palette,_white);
+    @include breakpoint (1050px) {
+      display: none;
+    }
+  }
+  &.with_background {
+    background: #000;
+  }
+}
+
+.header_padding {
+  height: $html_header;
+}
