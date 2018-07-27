@@ -1,4 +1,4 @@
-<div class='block--grid wrapper--global'>
+<div class='block--grid'>
   <div class='block--grid__header'>
     <div class='block--grid__header__wrapper'>
       <h<?=$data->h;?> class='block--grid__header__title'><?php echo $data->fields['title']; ?></h<?=$data->h;?>>
@@ -18,11 +18,10 @@
       <a href="<?php echo $main->methods->getPermalink($term->slug); ?>" class="<?php echo $actual_class; ?>"><?php echo $term->name; ?></a>
     <?php } ?>
   </div>
-  <div class='block--grid__scroll'>
-      <div class='block--grid__wrapper' id='fullpage'>
-        <div class='block--grid__post block--grid__post--top section'></div>
+
+      <div class='block--grid__wrapper'>
         <?php foreach( $data->posts as $index => $post ){ ?>
-          <div class='block--grid__post section' data-anchor="<?php echo $post->post_name; ?>">
+          <div class='block--grid__post section'>
             <div class="block--grid__thumbnail block--grid__thumbnail--desktop">
               <?php if(!empty($post->fields['thumbnail_desktop'])){ ?>
                 <a href="<?php echo $post->fields['permalink']; ?>">
@@ -49,15 +48,16 @@
                 ?>
               </span>
               </a>
+              <span class="block--grid__post__date"><?php echo date('j-n-Y', strtotime($post->post_date)); ?></span>
             </div>
           </div>
         <?php } ?>
       </div>
-  </div>
+
 </div>
 <?php
 if (!in_array("grid",$main->post->modules)){
   array_push($main->post->modules, "grid");
 }
-pr2($data);
+// pr2($data);
 ?>

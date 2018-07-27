@@ -32,41 +32,6 @@ class Global {
     }
   }
   resetModules () {
-    this.vue = new Vue({
-      el: '.data',
-      data: {
-        fullPageloaded: false,
-        html_header: 'ok',
-        page_scroll: true
-      },
-      methods: {
-        setPageScroll: function () {
-          this.page_scroll = true
-        },
-        unsetPageScroll: function () {
-          this.page_scroll = false
-        },
-        getFullPageloaded: function () {
-          return this.fullPageloaded
-        },
-        setFullPageloaded: function () {
-          this.fullPageloaded = true
-        },
-        destroyFullPage: function () {
-          $.fn.fullpage.destroy('all')
-        }
-      },
-      watch: {
-        // whenever question changes, this function will run
-        page_scroll: function (newCase, oldCase) {
-          if (this.page_scroll) {
-            document.querySelector('body').classList.remove('noScroll')
-          } else {
-            document.querySelector('body').classList.add('noScroll')
-          }
-        }
-      }
-    })
     this.cache['.data'] = document.querySelector('.data')
     let modules = this.cache['.data'].dataset.modules
     global.main.modules = modules.split(',')

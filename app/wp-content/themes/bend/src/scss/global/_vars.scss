@@ -5,7 +5,7 @@
 // HTML LAYOUT
 // ____________________________________
 
-$html_header: 150px;
+$html_header: 100px;
 
 
 // COLOR PALETTE
@@ -13,7 +13,11 @@ $html_header: 150px;
 
 $black:            #000 !default;
 $white:            #fff !default;
-$primary:          #0045D0 !default;
+$col_1:            #F08700 !default;
+$col_2:            #F49F0A !default;
+$col_3:            #EFCA08 !default;
+$col_4:            #00A6A6 !default;
+$col_5:            #BBDEF0 !default;
 $dark:             #002164 !default;
 $facebook:         #2C4484 !default;
 $google:           #3677F5 !default;
@@ -22,7 +26,11 @@ $greytext:         #9B9B9B !default;
 $palette: (
   "_black":        $black,
   "_white":        $white,
-  "primary":       $primary,
+  "col_1":         $col_1,
+  "col_2":         $col_2,
+  "col_3":         $col_3,
+  "col_4":         $col_4,
+  "col_5":         $col_5,
   "dark":          $dark,
   "facebook":      $facebook,
   "google":        $google,
@@ -60,3 +68,10 @@ $paddings: (
 // ____________________________________
 
 $letter_spacing: 0px;
+
+
+// BREAKPOINTS
+// ____________________________________
+
+$breakpoint_mobile: 380px;
+$breakpoint_tablet: 1024px;

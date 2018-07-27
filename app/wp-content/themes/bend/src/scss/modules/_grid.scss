@@ -3,5 +3,33 @@
 \*------------------------------------*/
 
 .block--grid {
-
+  &__header {
+    &__title {
+      margin: 0;
+    }
+  }
+  &__wrapper {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__post {
+    position: relative;
+    width: 25%;
+    min-height: 100px;
+    padding: 20px;
+  }
+  &__thumbnail {
+    &--desktop {
+      @include breakpoint($breakpoint_mobile) {
+        display: none;
+      }
+    }
+    &--mobile {
+      display: none;
+      @include breakpoint($breakpoint_mobile) {
+        display: block;
+      }
+    }
+  }
 }

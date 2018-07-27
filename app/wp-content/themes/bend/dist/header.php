@@ -40,7 +40,7 @@
 		<meta name="twitter:description" content="<?php ifecho($main->post->fields['og_description']); ?>" />
 		<meta name="twitter:image" content="<?php ifecho($main->post->fields['og_image']); ?>" />
 
-	<link href="/wp-content/themes/bend/dist/style.css?f5cd133bb50cc3faee38" rel="stylesheet"></head>
+	<link href="/wp-content/themes/bend/dist/style.css?da971dc3110392f7185a" rel="stylesheet"></head>
 	<body class="<?php echo $main->post->template;?>" data-main="">
 
 		<header class="html-header wrapper--global">
@@ -68,4 +68,4 @@
 
 		<div id="barba-wrapper" class="wrapper--global">
 			<div class="barba-container">
-<script type="text/javascript" src="/wp-content/themes/bend/dist/bundle.js?f5cd133bb50cc3faee38"></script>
+<script type="text/javascript" src="/wp-content/themes/bend/dist/bundle.js?da971dc3110392f7185a"></script>

@@ -7,7 +7,7 @@
             "label": "Thumbnail desktop",
             "name": "thumbnail_desktop",
             "type": "image_crop",
-            "instructions": "Mida mínima 2600px d'ample per 1584px d'alt",
+            "instructions": "Mida mínima 1280px d'ample per 720px d'alt",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -17,9 +17,9 @@
             },
             "crop_type": "hard",
             "target_size": "custom",
-            "width": 1300,
-            "height": 792,
-            "renditions": "1000,700",
+            "width": 640,
+            "height": 360,
+            "renditions": 380,
             "preview_size": "full",
             "force_crop": "yes",
             "save_in_media_library": "yes",
@@ -32,7 +32,7 @@
             "label": "Thumbnail mobile",
             "name": "thumbnail_mobile",
             "type": "image_crop",
-            "instructions": "Mida mínima 1400px d'ample per 1200px d'alt",
+            "instructions": "Mida mínima 1124px d'ample per 1124px d'alt",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -42,9 +42,9 @@
             },
             "crop_type": "hard",
             "target_size": "custom",
-            "width": 700,
-            "height": 600,
-            "renditions": 350,
+            "width": 562,
+            "height": 562,
+            "renditions": 380,
             "preview_size": "full",
             "force_crop": "yes",
             "save_in_media_library": "yes",
@@ -108,5 +108,5 @@
     "hide_on_screen": "",
     "active": 0,
     "description": "",
-    "modified": 1532422686
+    "modified": 1532681859
 }

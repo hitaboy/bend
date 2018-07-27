@@ -21,6 +21,7 @@ include "lib/utils.php";
 include "lib/languages.php";
 include "lib/counters.php";
 include "lib/globals.php";
+include "lib/post_cache.php";
 
  function pr2($content){
    echo "<pre>";

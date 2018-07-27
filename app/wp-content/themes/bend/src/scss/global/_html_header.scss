@@ -8,6 +8,7 @@
   left: 0;
   width: 100%;
   height: $html_header;
+  background: map-get($palette, col_2);
   z-index: 100;
   transition: background 0.5s;
   @include breakpoint (1050px) {
@@ -88,14 +89,14 @@
         }
         &:hover, &.current-menu-ancestor {
           li.current-menu-item a {
-            color: map-get($palette,primary);
+            color: map-get($palette,col_1);
           }
           &:after {
-            background: map-get($palette,primary);
+            background: map-get($palette,col_1);
           }
           >a {
             transition: color 0.3s;
-            color: map-get($palette,primary);
+            color: map-get($palette,col_1);
           }
           .sub-menu {
             max-height: 200px;

@@ -54,10 +54,6 @@
 				<?php $main->languages->langSelector(); ?>
 			</div>
 
-			<div class="html-header__bullet">
-
-			</div>
-
 			<?php
 				if (!in_array("html_header",$main->post->modules)){
 				  array_push($main->post->modules, "html_header");

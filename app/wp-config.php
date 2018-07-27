@@ -67,7 +67,7 @@ switch(ENVIRONMENT){
 		define( 'DB_COLLATE', '' );
 		define( 'WP_HOME','https://localhost' );
 		define( 'WP_SITEURL','https://localhost' );
-		define( 'WP_DEBUG', true );
+		define( 'WP_DEBUG', false );
 		define( 'SITE_PROTOCOL','https://' );
 		define( 'SITE_URL',$_SERVER['HTTP_HOST'] );
 	  define( 'SITE_RAW_URL',$_SERVER['HTTP_HOST'] );

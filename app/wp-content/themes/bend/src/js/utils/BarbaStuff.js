@@ -19,10 +19,7 @@ var FadeTransition = Barba.BaseTransition.extend({
     /**
      * this.oldContainer is the HTMLElement of the old Container
      */
-    // $('nav a').removeClass('actual')
-    if (typeof $.fn.fullpage.destroy === 'function') {
-      $.fn.fullpage.destroy('all')
-    }
+    // $('nav a').removeClass('actual')}
     global.main.vue.setPageScroll()
     return $(this.oldContainer).animate({ opacity: 0 }).promise()
   },

@@ -61,12 +61,13 @@
       }
       public function getPageFields (){
         global $main;
-        $main->post->fields = get_fields($main->post->ID);
+        // $main->post->fields = get_fields($main->post->ID);
+        $main->post->fields = unserialize($main->post->post_content);
         $main->post->template = $GLOBALS['current_theme_template'];
         $main->post->permalink = get_the_permalink();
       }
       public function getPermalink ($slug) {
-        global $main; 
+        global $main;
         return SITE_PROTOCOL.SITE_URL.$main->languages->lang_dir.$slug;
       }
     };
