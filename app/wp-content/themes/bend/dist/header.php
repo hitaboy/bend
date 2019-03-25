@@ -40,7 +40,7 @@
 		<meta name="twitter:description" content="<?php ifecho($main->post->fields['og_description']); ?>" />
 		<meta name="twitter:image" content="<?php ifecho($main->post->fields['og_image']); ?>" />
 
-	<link href="/wp-content/themes/bend/dist/style.css?da971dc3110392f7185a" rel="stylesheet"></head>
+	<link href="/wp-content/themes/bend/dist/style.css?8497e892ea40b4b86914" rel="stylesheet"></head>
 	<body class="<?php echo $main->post->template;?>" data-main="">
 
 		<header class="html-header wrapper--global">
@@ -54,10 +54,6 @@
 				<?php $main->languages->langSelector(); ?>
 			</div>
 
-			<div class="html-header__bullet">
-
-			</div>
-
 			<?php
 				if (!in_array("html_header",$main->post->modules)){
 				  array_push($main->post->modules, "html_header");
@@ -68,4 +64,4 @@
 
 		<div id="barba-wrapper" class="wrapper--global">
 			<div class="barba-container">
-<script type="text/javascript" src="/wp-content/themes/bend/dist/bundle.js?da971dc3110392f7185a"></script>
+<script type="text/javascript" src="/wp-content/themes/bend/dist/bundle.js?8497e892ea40b4b86914"></script>
