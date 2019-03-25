@@ -51,7 +51,7 @@ class WPML_Score_Hierarchy {
 		foreach ( $pages_with_name as $key => $page ) {
 			$correct_slug = end( $slugs );
 			if ( $page->post_name === $correct_slug ) {
-				if ( $this->is_matching( $page ) ) {
+				if ( $this->is_exactly_matching_all_slugs_in_order( $page ) ) {
 					$matching_ids[] = (int) $page->ID;
 				} else {
 					$related_ids[ $page->ID ] = $this->calculate_score( $parent_slugs, $pages_with_name, $page );
@@ -66,6 +66,23 @@ class WPML_Score_Hierarchy {
 			'matching_ids' => $matching_ids,
 			'related_ids'  => $related_ids,
 		);
+	}
+
+	/**
+	 * Get page object by its id.
+	 *
+	 * @param int $id
+	 *
+	 * @return false|object
+	 */
+	private function get_page_by_id( $id ) {
+		foreach ( $this->data as $page ) {
+			if ( (int) $page->ID === (int) $id ) {
+				return $page;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -90,23 +107,33 @@ class WPML_Score_Hierarchy {
 		return $new_score;
 	}
 
-	private function is_matching( $page ) {
-		$revert_slugs = array_reverse( $this->slugs );
-		$current_page = $page;
+	/**
+	 * @param stdClass $page
+	 *
+	 * @return bool
+	 */
+	private function is_exactly_matching_all_slugs_in_order( $page ) {
+		return $this->slugs === $this->get_slugs_for_page( $page );
+	}
 
-		foreach ( $revert_slugs as $slug ) {
-			if ( $slug !== $current_page->post_name ) {
-				return false;
-			}
+	/**
+	 * @param stdClass $current_page
+	 *
+	 * @return array
+	 */
+	private function get_slugs_for_page( $current_page ) {
+		$slugs = array();
 
-			foreach ( $this->data as $page ) {
-				if ( $page->ID === $current_page->post_parent ) {
-					$current_page = $page;
-					break;
-				}
+		while( $current_page && $current_page->post_name ) {
+			$slugs[]      = $current_page->post_name;
+			$parent_name  = $current_page->parent_name;
+			$current_page = $this->get_page_by_id( $current_page->post_parent );
+
+			if ( ! $current_page && $parent_name ) {
+				$slugs[] = $parent_name;
 			}
 		}
 
-		return true;
+		return array_reverse( $slugs );
 	}
 }

@@ -16,8 +16,6 @@ class WPML_Upgrade_Media_Without_Language extends WPML_Upgrade_Run_All {
 	/** @return bool */
 	protected function run() {
 		$initialize_post_type = new WPML_Initialize_Language_For_Post_Type( $this->wpdb );
-		$initialize_post_type->run( 'attachment', $this->default_language );
-
-		return $this->result;
+		return $initialize_post_type->run( 'attachment', $this->default_language );
 	}
 }

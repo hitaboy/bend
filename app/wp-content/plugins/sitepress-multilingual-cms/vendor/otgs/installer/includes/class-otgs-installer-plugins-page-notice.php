@@ -51,7 +51,7 @@ class OTGS_Installer_Plugins_Page_Notice {
 		$plugin = $this->plugin_finder->get_plugin_by_name( $plugin_data['Name'] );
 
 		if ( $should_display_subscription_notice ) {
-			if ( $plugin && 'toolset' === $plugin->get_external_repo() ) {
+			if ( $plugin && 'toolset' === $plugin->get_external_repo() && $plugin->is_lite() ) {
 				echo $this->template_service->show( $this->get_toolset_lite_notice_model( $plugin->get_name() ), self::TEMPLATE );
 			} else {
 				echo $this->template_service->show( $this->get_model(), self::TEMPLATE );
@@ -98,7 +98,7 @@ class OTGS_Installer_Plugins_Page_Notice {
 		return array(
 			'strings'   => array(
 				'valid_subscription' => sprintf( __( 'You are using the complementary %1$s. For the %2$s, %3$s.', 'installer' ),
-					$plugin_name, '<a href="https://wpml.org/documentation/developing-custom-multilingual-sites/advanced-sites-with-toolset-lite/?utm_source=viewsplugin&utm_campaign=wpml-toolset-lite&utm_medium=plugins-page&utm_term=features-link">' . __( 'complete set of features', 'installer' ) . '</a>', '<a href="https://toolset.com/?add-to-cart=631305&buy_now=1&apply_coupon=eyJjb3Vwb25fbmFtZSI6IndwbWwgY291cG9uIGJhc2ljIiwiY291cG9uX2lkIjoiODAyMDE2In0=">' . __( 'upgrade to Toolset', 'installer' ) . '</a>' ),
+					$plugin_name, '<a href="https://wpml.org/documentation/developing-custom-multilingual-sites/types-and-views-lite/?utm_source=viewsplugin&utm_campaign=wpml-toolset-lite&utm_medium=plugins-page&utm_term=features-link">' . __( 'complete set of features', 'installer' ) . '</a>', '<a href="https://toolset.com/?add-to-cart=631305&buy_now=1&apply_coupon=eyJjb3Vwb25fbmFtZSI6IndwbWwgY291cG9uIGJhc2ljIiwiY291cG9uX2lkIjoiODAyMDE2In0=">' . __( 'upgrade to Toolset', 'installer' ) . '</a>' ),
 			),
 			'css'       => array(
 				'tr_classes'     => $tr_classes,

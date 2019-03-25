@@ -7,16 +7,16 @@ class WPML_Upgrade_Loader implements IWPML_Action {
 	/** @var SitePress */
 	private $sitepress;
 
-	/** @var wpdb */
+	/** @var WPML_Upgrade_Schema */
 	private $upgrade_schema;
 
-	/** @var WPML_Settings_Helper  */
+	/** @var WPML_Settings_Helper */
 	private $settings;
 
 	/** @var WPML_Upgrade_Command_Factory */
 	private $factory;
 
-	/** @var WPML_Notices  */
+	/** @var WPML_Notices */
 	private $notices;
 
 	public function __construct(
@@ -52,16 +52,14 @@ class WPML_Upgrade_Loader implements IWPML_Action {
 			$this->factory->create_command_definition( 'WPML_Upgrade_Element_Type_Length_And_Collation', array( $this->upgrade_schema ), array( 'admin', 'ajax', 'front-end' ) ),
 			$this->factory->create_command_definition( 'WPML_Upgrade_Add_Word_Count_Column_To_Strings', array( $this->upgrade_schema ), array( 'admin', 'ajax', 'front-end' ) ),
 			$this->factory->create_command_definition( 'WPML_Upgrade_Media_Without_Language', array( $this->upgrade_schema->get_wpdb(), $this->sitepress->get_default_language() ), array( 'admin', 'ajax' ) ),
+			$this->factory->create_command_definition( 'WPML_Upgrade_Media_Duplication_In_Core', array( $this->sitepress, $this->upgrade_schema, $this->notices ), array( 'admin', 'ajax' ) ),
+			$this->factory->create_command_definition( 'WPML_Upgrade_Chinese_Flags', array( 'wpdb' => $this->sitepress->wpdb() ), array( 'admin' ) ),
+			$this->factory->create_command_definition( 'WPML_Upgrade_Add_Editor_Column_To_Icl_Translate_Job', array( $this->upgrade_schema ), array( 'admin', 'ajax', 'front-end' ) ),
+			$this->factory->create_command_definition( 'WPML_Upgrade_WPML_Site_ID', array(), array( 'admin' ) ),
+			$this->factory->create_command_definition( 'WPML_Upgrade_WPML_Site_ID_Remaining', array(), array( 'admin' ) ),
 		);
 
 		$upgrade = new WPML_Upgrade( $commands, $this->sitepress, $this->factory );
-
-		$deferred_commands = array(
-			$this->factory->create_command_definition( 'WPML_Upgrade_Media_Duplication_In_Core', array( $this->sitepress, $this->upgrade_schema, $upgrade ), array( 'admin' ) ),
-		);
-
-
-		$upgrade->add_commands( $deferred_commands );
 		$upgrade->run();
 	}
 }

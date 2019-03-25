@@ -1,0 +1,177 @@
+# Translation of Plugins - Redis Object Cache - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Redis Object Cache - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2019-01-19 13:56:28+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Redis Object Cache - Stable (latest release)\n"
+
+#: includes/admin-page.php:18
+msgid "Download for Free"
+msgstr "Descárgalo gratis"
+
+#: includes/admin-page.php:14
+msgid "Enjoy a clean inbox and peace of mind knowing that your email address is safe from email-harvesting robots."
+msgstr "Disfruta de una bandeja de entrada limpia y de la tranquilidad de saber que tu dirección de correo electrónico está a salvo de los robots de recolección de correo electrónico."
+
+#: includes/admin-page.php:11
+msgid "Are your email addresses protected?"
+msgstr "¿Están protegidas tus direcciones de correo electrónico?"
+
+#: includes/admin-page.php:90
+msgid "Show Diagnostics"
+msgstr "Mostrar diagnóstico"
+
+#: includes/admin-page.php:84
+msgid "Diagnostics"
+msgstr "Diagnóstico"
+
+#: includes/wp-cli-commands.php:100
+msgid "No object cache drop-in found."
+msgstr "No se ha encontrado ningún drop-in de caché de objetos."
+
+#: includes/wp-cli-commands.php:144 redis-cache.php:270
+msgid "Object cache drop-in could not be updated."
+msgstr "No se ha podido actualizar el drop-in de la caché de objetos."
+
+#: includes/wp-cli-commands.php:142 redis-cache.php:267
+msgid "Updated object cache drop-in and enabled Redis object cache."
+msgstr "Actualizado el drop-in de caché de objetos y habilitado la caché de objetos Redis."
+
+#: includes/wp-cli-commands.php:64 includes/wp-cli-commands.php:106
+msgid "An unknown object cache drop-in was found. To use Redis run: wp redis update-dropin."
+msgstr "Se ha encontrado un drop-in de caché de objetos desconocido. Para utilizar Redis ejecuta: wp redis update-dropin."
+
+#: includes/wp-cli-commands.php:62
+msgid "Redis object cache already enabled."
+msgstr "La caché de objetos Redis ya está habilitada."
+
+#. Author URI of the plugin
+msgid "https://till.im/"
+msgstr "https://till.im/"
+
+#: includes/servers-list.php:76
+msgid "No"
+msgstr "No"
+
+#: includes/servers-list.php:8
+msgid "Server"
+msgstr "Servidor"
+
+#: includes/admin-page.php:77 includes/servers-list.php:9
+msgid "Servers"
+msgstr "Servidores"
+
+#: includes/admin-page.php:26
+msgid "Overview"
+msgstr "Resumen"
+
+#. Description of the plugin
+msgid "A persistent object cache backend powered by Redis. Supports Predis, PhpRedis, HHVM, replication, clustering and WP-CLI."
+msgstr "Un backend de caché de objetos persistente mediante Redis. Compatible con Predis, PhpRedis, HHVM, replicación, clustering y WP-CLI."
+
+#: includes/servers-list.php:76
+msgid "Yes"
+msgstr "Sí"
+
+#: includes/wp-cli-commands.php:23 redis-cache.php:149
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: includes/admin-page.php:31
+msgid "Status:"
+msgstr "Estado"
+
+#: includes/wp-cli-commands.php:29 redis-cache.php:158
+msgid "Not Connected"
+msgstr "No conectado"
+
+#: redis-cache.php:162
+msgid "Unknown"
+msgstr "Desconocido"
+
+#: redis-cache.php:240
+msgid "This plugin requires PHP 5.4 or greater."
+msgstr "Este plugin requiere PHP 5.4 o superior."
+
+#. Author of the plugin
+msgid "Till Krüss"
+msgstr "Till Krüss"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/redis-cache/"
+msgstr "https://es.wordpress.org/plugins/redis-cache/"
+
+#: redis-cache.php:264
+msgid "Object cache could not be flushed."
+msgstr "No se pudo vaciar la caché de objetos."
+
+#: redis-cache.php:261
+msgid "Object cache flushed."
+msgstr "La caché de objetos se ha vaciado."
+
+#: includes/wp-cli-commands.php:115 redis-cache.php:258
+msgid "Object cache could not be disabled."
+msgstr "La caché de objetos no se ha podido desactivar."
+
+#: includes/wp-cli-commands.php:113 redis-cache.php:255
+msgid "Object cache disabled."
+msgstr "Caché de objetos desactivada."
+
+#: includes/wp-cli-commands.php:74 redis-cache.php:252
+msgid "Object cache could not be enabled."
+msgstr "No se ha podido activar la caché de objetos."
+
+#: includes/wp-cli-commands.php:72 redis-cache.php:249
+msgid "Object cache enabled."
+msgstr "Caché de objetos activada."
+
+#: redis-cache.php:224
+msgid "An unknown object cache drop-in was found. To use Redis, <a href=\"%s\">please replace it now</a>."
+msgstr "Se ha encontrado un drop-in de caché de objeto desconocido. <a href=\"%s\">Reemplázalo</a> para usar Redis."
+
+#: redis-cache.php:219
+msgid "The Redis object cache drop-in is outdated. Please <a href=\"%s\">update it now</a>."
+msgstr "El drop-in de la caché de objetos Redis está desactualizado. Por favor <a href=\"%s\">actualízalo</a>."
+
+#: includes/admin-page.php:61
+msgid "Flush Cache"
+msgstr "Vaciar Caché"
+
+#: includes/wp-cli-commands.php:26 redis-cache.php:154
+msgid "Connected"
+msgstr "Conectado"
+
+#: redis-cache.php:59
+msgid "Redis"
+msgstr "Redis"
+
+#: includes/admin-page.php:67
+msgid "Disable Object Cache"
+msgstr "Desactivar la caché de objetos"
+
+#: includes/admin-page.php:65
+msgid "Enable Object Cache"
+msgstr "Activar la caché de objetos"
+
+#: includes/admin-page.php:51
+msgid "Max. TTL:"
+msgstr "Max. TTL:"
+
+#: includes/admin-page.php:44
+msgid "Key Prefix:"
+msgstr "Prefijo de clave:"
+
+#: includes/admin-page.php:37
+msgid "Client:"
+msgstr "Cliente:"
+
+#. Plugin Name of the plugin
+#: includes/admin-page.php:6 redis-cache.php:58
+msgid "Redis Object Cache"
+msgstr "Redis Object Cache"

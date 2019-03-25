@@ -44,8 +44,8 @@ class WPML_Media_Attachments_Duplication {
 			add_action( 'icl_make_duplicate', array( $this, 'make_duplicate' ), 10, 4 );
 		}
 
-		add_action( 'update_postmeta', array( $this, 'record_original_thumbnail_ids' ), 10, 4 );
-		add_action( 'delete_post_meta', array($this, 'record_original_thumbnail_ids' ), 10, 4 );
+		add_action( 'update_postmeta', array( $this, 'record_original_thumbnail_ids_and_sync' ), 10, 4 );
+		add_action( 'delete_post_meta', array($this, 'record_original_thumbnail_ids_and_sync' ), 10, 4 );
 		add_action( 'save_post', array( $this, 'save_post_actions' ), 100, 2 );
 		add_action( 'wpml_pro_translation_completed', array( $this, 'sync_on_translation_complete' ), 10, 3 );
 
@@ -202,10 +202,14 @@ class WPML_Media_Attachments_Duplication {
 		}
 	}
 
-	private function translate_attachments( $attachment_id, $source_language ) {
+	private function translate_attachments( $attachment_id, $source_language, $override_always_translate_media = false ) {
+		if ( ! $source_language ) {
+			return;
+		}
+
 		$settings = get_option( '_wpml_media' );
 		$content_defaults = $settings['new_content_settings'];
-		if ( ! empty( $source_language ) && $content_defaults['always_translate_media'] ) {
+		if ( $override_always_translate_media || $content_defaults['always_translate_media'] ) {
 
 			global $sitepress;
 
@@ -366,6 +370,16 @@ class WPML_Media_Attachments_Duplication {
 
 			$this->attachments_model->duplicate_post_meta_data( $attachment_id, $duplicated_attachment_id );
 
+			/**
+			 * Fires when attachment is duplicated
+			 *
+			 * @since 4.1.0
+			 *
+			 * @param int $attachment_id            The ID of the source/original attachment.
+			 * @param int $duplicated_attachment_id The ID of the duplicated attachment.
+			 */
+			do_action( 'wpml_after_duplicate_attachment', $attachment_id, $duplicated_attachment_id );
+
 			return $duplicated_attachment_id;
 		} catch ( WPML_Media_Exception $e ) {
 			return null;
@@ -377,11 +391,12 @@ class WPML_Media_Attachments_Duplication {
 		$this->save_post_actions( $new_post_id, $new_post );
 	}
 
-	public function record_original_thumbnail_ids( $meta_id, $object_id, $meta_key, $meta_value ) {
+	public function record_original_thumbnail_ids_and_sync( $meta_id, $object_id, $meta_key, $meta_value ) {
 		if ( '_thumbnail_id' === $meta_key ) {
 			$original_thumbnail_id = get_post_meta( $object_id, $meta_key, true );
 			if ( $original_thumbnail_id !== $meta_value ) {
 				$this->original_thumbnail_ids[ $object_id ] = $original_thumbnail_id;
+				$this->sync_post_thumbnail( $object_id, $meta_value ? $meta_value : false );
 			}
 		}
 	}
@@ -397,7 +412,6 @@ class WPML_Media_Attachments_Duplication {
 
 		if ( $post->post_type !== 'attachment' && $post->post_status !== "auto-draft" ) {
 			$this->sync_attachments( $pidd, $post );
-			$this->sync_post_thumbnail( $pidd );
 		}
 
 		if ( $post->post_type === 'attachment' ) {
@@ -496,11 +510,25 @@ class WPML_Media_Attachments_Duplication {
 		}
 	}
 
-	public function sync_post_thumbnail( $post_id ) {
+	public function sync_post_thumbnail( $post_id, $request_post_thumbnail_id = null ) {
+
 		if ( $post_id && get_post_meta( $post_id, '_wpml_media_featured', true ) ) {
 
-			$request_post_thumbnail_id = filter_input(INPUT_POST, 'thumbnail_id', FILTER_SANITIZE_NUMBER_INT, FILTER_NULL_ON_FAILURE);
-			$thumbnail_id = $request_post_thumbnail_id ? $request_post_thumbnail_id : get_post_meta( $post_id, '_thumbnail_id', true );
+			if ( null === $request_post_thumbnail_id ) {
+				$request_post_thumbnail_id = filter_input(
+					INPUT_POST,
+					'thumbnail_id',
+					FILTER_SANITIZE_NUMBER_INT,
+					FILTER_NULL_ON_FAILURE
+				);
+
+				$thumbnail_id = $request_post_thumbnail_id ?
+					$request_post_thumbnail_id :
+					get_post_meta( $post_id, '_thumbnail_id', true );
+			} else {
+				$thumbnail_id = $request_post_thumbnail_id;
+			}
+
 			$trid         = $this->sitepress->get_element_trid( $post_id, 'post_' . get_post_type( $post_id ) );
 			$translations = $this->sitepress->get_element_translations( $trid, 'post_' . get_post_type( $post_id ) );
 
@@ -535,6 +563,10 @@ class WPML_Media_Attachments_Duplication {
 		$translation_thumbnail_id = get_post_meta( $translation->element_id, '_thumbnail_id', true );
 
 		if ( isset( $this->original_thumbnail_ids[ $source_id ] ) ) {
+			if ( $this->original_thumbnail_ids[ $source_id ] === $translation_thumbnail_id ) {
+				return true;
+			}
+
 			return $this->are_translations_of_each_other(
 				$this->original_thumbnail_ids[ $source_id],
 				$translation_thumbnail_id
@@ -912,7 +944,7 @@ class WPML_Media_Attachments_Duplication {
 		if ( $attachments ) {
 			foreach ( $attachments as $attachment ) {
 				$lang = $this->sitepress->get_element_language_details( $attachment->ID, 'post_attachment' );
-				$this->translate_attachments( $attachment->ID, $lang->language_code );
+				$this->translate_attachments( $attachment->ID, $lang->language_code, true );
 			}
 		}
 

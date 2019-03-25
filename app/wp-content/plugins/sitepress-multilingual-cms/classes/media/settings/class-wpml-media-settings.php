@@ -1,6 +1,7 @@
 <?php
 
 class WPML_Media_Settings {
+	const ID = 'ml-content-setup-sec-media';
 
 	private $wpdb;
 
@@ -9,8 +10,9 @@ class WPML_Media_Settings {
 	}
 
 	public function add_hooks() {
-		add_action( 'icl_tm_menu_mcsetup', array( $this, 'render' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_script' ) );
+		add_action( 'icl_tm_menu_mcsetup', array( $this, 'render' ) );
+		add_filter( 'wpml_mcsetup_navigation_links', array( $this, 'mcsetup_navigation_links' ) );
 	}
 
 	public function enqueue_script() {
@@ -18,19 +20,12 @@ class WPML_Media_Settings {
 	}
 
 	public function render() {
-		$orphan_attachments_sql = "
-		SELECT COUNT(*)
-		FROM {$this->wpdb->posts}
-		WHERE post_type = 'attachment'
-			AND ID NOT IN (
-				SELECT element_id
-				FROM {$this->wpdb->prefix}icl_translations
-				WHERE element_type='post_attachment'
-			)
-		";
-
-		$orphan_attachments     = $this->wpdb->get_var( $orphan_attachments_sql );
-
 		include WPML_PLUGIN_PATH . '/classes/media/management.php';
+	}
+
+	public function mcsetup_navigation_links( array $mcsetup_sections ) {
+		$mcsetup_sections[ self::ID ] = esc_html__( 'Media Translation', 'sitepress' );
+
+		return $mcsetup_sections;
 	}
 }

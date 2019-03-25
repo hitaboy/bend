@@ -498,4 +498,6 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
     $existing_mimes['gz'] = 'application/x-gzip';
     return $existing_mimes;
 }
-?>
+
+/* Disable the Gutenberg editor. */
+add_filter('use_block_editor_for_post', '__return_false');

@@ -26,6 +26,9 @@ class WPML_Register_String_Filter extends WPML_Displayed_String_Filter {
 	protected $name_and_gettext_context;
 	protected $key;
 
+	/** @var bool $block_save_strings */
+	private $block_save_strings = false;
+
 	/**
 	 * @param wpdb $wpdb
 	 * @param SitePress $sitepress
@@ -159,7 +162,7 @@ class WPML_Register_String_Filter extends WPML_Displayed_String_Filter {
 	}
 
 	private function save_string( $value, $allow_empty_value, $language, $domain, $context, $name ) {
-		if ( $allow_empty_value || 0 !== strlen( $value ) ) {
+		if ( ! $this->block_save_strings && ( $allow_empty_value || 0 !== strlen( $value ) ) ) {
 
 			$args = array(
 				'language'                => $language,
@@ -171,14 +174,31 @@ class WPML_Register_String_Filter extends WPML_Displayed_String_Filter {
 				'status'                  => ICL_TM_NOT_TRANSLATED
 			);
 
-			if( class_exists( 'WPML_TM_Translation_Priorities' ) ){
+			$query_values = array( '%s', '%s', '%s', '%s', '%s', '%s', '%d' );
+
+			if ( class_exists( 'WPML_TM_Translation_Priorities' ) ) {
 				$args['translation_priority'] = WPML_TM_Translation_Priorities::DEFAULT_TRANSLATION_PRIORITY_VALUE_SLUG;
+				$query_values[]               = '%s';
 			}
 
-			$this->wpdb->insert( $this->wpdb->prefix . 'icl_strings', $args );
+			$query_values  = implode( ', ', $query_values );
+			$query_columns = implode( ', ', array_keys( $args ) );
+			$query         = "INSERT IGNORE INTO {$this->wpdb->prefix}icl_strings ({$query_columns}) VALUES ( {$query_values} )";
+
+			$this->wpdb->query(
+				$this->wpdb->prepare( $query, $args )
+			);
+
 			$string_id = $this->wpdb->insert_id;
+
 			if ( $string_id === 0 ) {
-				throw new Exception( 'Could not add String with arguments: value: ' . $value . ' allow_empty_value:' . $allow_empty_value . ' language: ' . $language );
+				if ( empty( $this->wpdb->last_error ) ) {
+					$string_id = $this->get_string_id_registered_in_concurrent_request( $args );
+				} else {
+					$input_args = $args;
+					$input_args['allow_empty_value'] = $allow_empty_value;
+					$string_id = $this->handle_db_error_and_resave_string( $input_args );
+				}
 			}
 
 			icl_update_string_status( $string_id );
@@ -195,6 +215,49 @@ class WPML_Register_String_Filter extends WPML_Displayed_String_Filter {
 		}
 
 		return $string_id;
+	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return int
+	 */
+	private function handle_db_error_and_resave_string( array $args ) {
+		$repair_schema = new WPML_ST_Repair_Strings_Schema( wpml_get_admin_notices(), $args, $this->wpdb->last_error );
+
+		if ( false !== strpos( $this->wpdb->last_error, 'translation_priority' ) ) {
+			$repair_schema->set_command( new WPML_ST_Upgrade_DB_Strings_Add_Translation_Priority_Field( $this->wpdb ) );
+		}
+
+		if ( $repair_schema->run() ) {
+			$string_id = $this->save_string(
+				$args['value'],
+				$args['allow_empty_value'],
+				$args['language'],
+				$args['context'],
+				$args['gettext_context'],
+				$args['name']
+			);
+		} else {
+			$string_id = 0;
+			$this->block_save_strings = true;
+		}
+
+		return $string_id;
+	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return int
+	 */
+	private function get_string_id_registered_in_concurrent_request( array $args ) {
+		return (int) $this->wpdb->get_var(
+			$this->wpdb->prepare(
+				"SELECT id FROM {$this->wpdb->prefix}icl_strings WHERE domain_name_context_md5 = %s",
+				md5( $args['context'] . $args['name'] . $args['gettext_context'] )
+			)
+		);
 	}
 
 	/**

@@ -25,20 +25,29 @@ class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 	}
 
 	/**
-	 * @param Integer $post_id
-	 * @param String $post_status
+	 * @param int    $post_id
+	 * @param string $post_status
+	 *
 	 * @return null|int
 	 */
 	function get_save_post_trid( $post_id, $post_status ) {
 		$trid = $this->get_element_trid( $post_id );
-		$trid = $trid ? $trid : filter_var( isset( $_POST['icl_trid'] ) ? $_POST['icl_trid'] : '', FILTER_SANITIZE_NUMBER_INT );
-		$trid = $trid ? $trid : filter_var( isset( $_GET['trid'] ) ? $_GET['trid'] : '', FILTER_SANITIZE_NUMBER_INT );
-		$trid = $trid ? $trid : $this->get_trid_from_referer();
+
+		if ( ! $this->is_inner_post_insertion() ) {
+			$trid = $trid ? $trid : filter_var( isset( $_POST['icl_trid'] ) ? $_POST['icl_trid'] : '', FILTER_SANITIZE_NUMBER_INT );
+			$trid = $trid ? $trid : filter_var( isset( $_GET['trid'] ) ? $_GET['trid'] : '', FILTER_SANITIZE_NUMBER_INT );
+			$trid = $trid ? $trid : $this->get_trid_from_referer();
+		}
+
 		$trid = apply_filters( 'wpml_save_post_trid_value', $trid, $post_status );
 
 		return $trid;
 	}
 
+	/**
+	 * @param int     $post_id
+	 * @param WP_Post $post
+	 */
 	public function save_post_actions( $post_id, $post ) {
 		global $sitepress;
 
@@ -60,12 +69,7 @@ class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 		}
 
 		$default_language = $sitepress->get_default_language();
-		$post_vars        = (array) $_POST;
-		foreach ( (array) $post as $k => $v ) {
-			$post_vars[ $k ] = $v;
-		}
-
-		$post_vars['post_type'] = isset( $post_vars['post_type'] ) ? $post_vars['post_type'] : $post->post_type;
+		$post_vars        = $this->get_post_vars( $post );
 
 		if ( isset( $post_vars['action'] ) && $post_vars['action'] === 'post-quickpress-publish' ) {
 			$language_code = $default_language;
@@ -200,9 +204,12 @@ class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 	 * @return null|string
 	 */
 	public function get_save_post_lang( $post_id, $sitepress ) {
-		$language_code = filter_var(
-			( isset( $_POST['icl_post_language'] ) ? $_POST['icl_post_language'] : '' ),
-			FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		$language_code = null;
+		if ( isset( $_POST['post_ID'] ) && (int) $_POST['post_ID'] === (int) $post_id ) {
+			$language_code = filter_var(
+				( isset( $_POST['icl_post_language'] ) ? $_POST['icl_post_language'] : '' ),
+				FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		}
 		$language_code = $language_code
 			? $language_code
 			: filter_input(

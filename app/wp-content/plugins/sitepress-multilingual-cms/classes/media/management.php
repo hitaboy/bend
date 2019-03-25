@@ -1,12 +1,20 @@
 <?php
 // @use WPML_Media::menu_content
-?>
-<script type="text/javascript">
-	var wpml_media_ajxloaderimg_src = '<?php echo ICL_PLUGIN_URL ?>/res/img/ajax-loader.gif';
-	var wpml_media_ajxloaderimg = '<img src="' + wpml_media_ajxloaderimg_src + '" alt="loading" width="16" height="16" />';
-</script>
+$orphan_attachments_sql = "
+		SELECT COUNT(*)
+		FROM {$this->wpdb->posts}
+		WHERE post_type = 'attachment'
+			AND ID NOT IN (
+				SELECT element_id
+				FROM {$this->wpdb->prefix}icl_translations
+				WHERE element_type='post_attachment'
+			)
+		";
 
-<div class="wpml-section" id="ml-content-setup-sec-media">
+$orphan_attachments = $this->wpdb->get_var( $orphan_attachments_sql );
+
+?>
+<div class="wpml-section" id="<?php echo esc_attr( WPML_Media_Settings::ID ); ?>">
 
 	<div class="wpml-section-header">
 		<h3><?php esc_html_e('Media Translation', 'sitepress'); ?></h3>
@@ -15,7 +23,7 @@
 	<div class="wpml-section-content">
 		<?php if ( $orphan_attachments ): ?>
 
-			<p><?php esc_html_e("The Media Translation plugin needs to add languages to your site's media. Without this language information, existing media files will not be displayed in the WordPress admin.", 'wpml-media') ?></p>
+			<p><?php esc_html_e("The Media Translation plugin needs to add languages to your site's media. Without this language information, existing media files will not be displayed in the WordPress admin.", 'sitepress') ?></p>
 
 		<?php else: ?>
 
@@ -51,7 +59,7 @@
 				<tr>
 					<td colspan="2">
 						<img class="progress" src="<?php echo ICL_PLUGIN_URL ?>/res/img/ajax-loader.gif" width="16" height="16" alt="loading" style="display: none;"/>
-						&nbsp;<span class="status"></span>
+						&nbsp;<span class="status"> </span>
 					</td>
 				</tr>
             </table>
@@ -100,14 +108,14 @@
 				<tr>
 					<td colspan="2">
 						<img class="content_default_progress" src="<?php echo ICL_PLUGIN_URL ?>/res/img/ajax-loader.gif" width="16" height="16" alt="loading" style="display: none;"/>
-						&nbsp;<span class="content_default_status"></span>
+						&nbsp;<span class="content_default_status"> </span>
 					</td>
 				</tr>
 
 			</table>
 
 			<div id="wpml_media_all_done" class="hidden updated">
-				<p><?php esc_html_e("You're all done. From now on, all new media files that you upload to content will receive a language. You can automatically duplicate them to translations from the post-edit screen.", 'wpml-media') ?></p>
+				<p><?php esc_html_e("You're all done. From now on, all new media files that you upload to content will receive a language. You can automatically duplicate them to translations from the post-edit screen.", 'sitepress') ?></p>
 			</div>
 
 		</form>

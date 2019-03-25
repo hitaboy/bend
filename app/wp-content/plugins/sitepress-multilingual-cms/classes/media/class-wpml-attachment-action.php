@@ -112,10 +112,19 @@ class WPML_Attachment_Action implements IWPML_Action {
 
 	//check if the image is not duplicated to another post before deleting it physically
 	public function delete_file_actions( $file ) {
+		static $saved_request = array();
 		if ( $file ) {
 			$file_name = $this->get_file_name_without_size_from_full_name( $file );
-			$attachment_prepared = $this->wpdb->prepare( "SELECT pm.meta_id, pm.post_id FROM {$this->wpdb->postmeta} AS pm WHERE pm.meta_value LIKE %s", array( '%' . $file_name ) );
-			$attachment          = $this->wpdb->get_row( $attachment_prepared );
+			if ( array_key_exists( $file_name, $saved_request ) ) {
+				$attachment = $saved_request[$file_name];
+			} else {
+				$sql = "SELECT pm.meta_id, pm.post_id FROM {$this->wpdb->postmeta} AS pm 
+						WHERE pm.meta_value LIKE %s AND pm.meta_key='_wp_attached_file'";
+				$attachment_prepared = $this->wpdb->prepare( $sql, array( '%' . $file_name ) );
+				$attachment = $this->wpdb->get_row( $attachment_prepared );
+
+				$saved_request [$file_name] = $attachment;
+			}
 			if ( ! empty( $attachment ) ) {
 				$file = null;
 			}

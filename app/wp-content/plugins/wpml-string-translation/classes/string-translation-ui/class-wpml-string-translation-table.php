@@ -93,10 +93,12 @@ class WPML_String_Translation_Table {
 					<img src="<?php echo esc_url( $sitepress->get_flag_url( $icl_string['string_language'] ) ) ?>"> <?php echo esc_html( $icl_string['value'] ) ?>
 				</div>
 				<div style="float:right;">
-					<a href="#icl-st-toggle-translations"><?php esc_html_e( 'translations', 'wpml-string-translation' ) ?></a>
+					<a href="#icl-st-toggle-translations" class="js-wpml-st-toggle-translations"><?php esc_html_e( 'translations', 'wpml-string-translation' ) ?></a>
 				</div>
 				<br clear="all"/>
-				<div class="icl-st-inline">
+				<div class="icl-st-inline"
+					 data-original="<?php echo esc_attr( $icl_string['value'] ); ?>"
+					 data-source-lang="<?php echo esc_attr( $icl_string['string_language'] ); ?>">
 					<?php foreach ( $this->active_languages as $lang ): if ( $lang['code'] === $icl_string['string_language'] ) {
 						continue;
 					} ?>
@@ -233,26 +235,49 @@ class WPML_String_Translation_Table {
 
 	private function render_view_column( $string_id ) {
 		if ( isset( $this->strings_in_page[ ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_SOURCE ][ $string_id ] ) ) {
-			$nonce = wp_create_nonce( 'view_string_in_source' );
+
+			$thickbox_url = $this->get_thickbox_url( WPML_ST_String_Tracking_AJAX_Factory::ACTION_POSITION_IN_SOURCE, $string_id );
 
 			?>
 			<a class="thickbox" title="<?php esc_attr_e( 'view in source', 'wpml-string-translation' ) ?>"
-			   href="admin.php?page=<?php echo WPML_ST_FOLDER ?>%2Fmenu%2Fstring-translation.php&amp;icl_action=view_string_in_source&amp;nonce=<?php echo $nonce; ?>&amp;string_id=<?php
-			   echo $string_id ?>&amp;width=810&amp;height=600"><img
-						src="<?php echo WPML_ST_URL ?>/res/img/view-in-source.png" width="16" height="16"
-						alt="<?php esc_attr_e( 'view in page', 'wpml-string-translation' ) ?>"/></a>
+			   href="<?php echo esc_url( $thickbox_url ); ?>">
+				<img src="<?php echo WPML_ST_URL ?>/res/img/view-in-source.png" width="16" height="16"
+						alt="<?php esc_attr_e( 'view in page', 'wpml-string-translation' ) ?>"/>
+			</a>
 			<?php
 		}
 
 		if ( isset( $this->strings_in_page[ ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_PAGE ][ $string_id ] ) ) {
+			$thickbox_url = $this->get_thickbox_url( WPML_ST_String_Tracking_AJAX_Factory::ACTION_POSITION_IN_PAGE, $string_id );
+
 			?>
 			<a class="thickbox" title="<?php esc_attr_e( 'view in page', 'wpml-string-translation' ) ?>"
-			   href="admin.php?page=<?php echo WPML_ST_FOLDER ?>%2Fmenu%2Fstring-translation.php&icl_action=view_string_in_page&string_id=<?php
-			   echo $string_id ?>&width=810&height=600"><img src="<?php echo WPML_ST_URL ?>/res/img/view-in-page.png"
-															 width="16" height="16"
-															 alt="<?php esc_attr_e( 'view in page', 'wpml-string-translation' ) ?>"/></a>
+			   href="<?php echo esc_url( $thickbox_url ); ?>">
+				<img src="<?php echo WPML_ST_URL ?>/res/img/view-in-page.png" width="16" height="16"
+					 alt="<?php esc_attr_e( 'view in page', 'wpml-string-translation' ) ?>"/>
+			</a>
 			<?php
 		}
+	}
+
+	/**
+	 * @param string $action
+	 * @param int    $string_id
+	 *
+	 * @return string
+	 */
+	private function get_thickbox_url( $action, $string_id ) {
+		return add_query_arg(
+			array(
+				'page'      => WPML_ST_FOLDER . '/menu/string-translation.php',
+				'action'    => $action,
+				'nonce'     => wp_create_nonce( $action ),
+				'string_id' => $string_id,
+				'width'     => 810,
+				'height'    => 600,
+			),
+			'admin-ajax.php'
+		);
 	}
 
 	private function get_translation_form_status( $icl_string, $lang ) {

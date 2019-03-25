@@ -183,9 +183,12 @@ if ( $custom_taxonomies ) {
 								    $translation_mode,
 								    $unlocked
 							    );
-								if ( $taxonomy_slug_UI ) { ?>
+
+							    $slug_UI = apply_filters( 'wpml_taxonomy_slug_translation_ui', $taxonomy_slug_UI, $ctax );
+
+							    if ( $slug_UI ) { ?>
 								<div class="wpml-flex-table-cell-span">
-									<?php echo $taxonomy_slug_UI->render( $ctax, $wp_taxonomies[ $ctax ] ); ?>
+									<?php echo $slug_UI->render( $ctax, $wp_taxonomies[ $ctax ] ); ?>
 								</div>
 							   <?php } ?>
 						    </div>

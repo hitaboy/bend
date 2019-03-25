@@ -107,41 +107,7 @@ class WPML_PHP_Functions {
 	 * @return array
 	 */
 	public function array_unique( $array, $sort_flags = SORT_REGULAR ) {
-		if ( version_compare( $this->phpversion(), '5.2.9', '>=' ) ) {
-			return array_unique( $array, $sort_flags );
-		} else {
-			return $this->array_unique_fallback( $array, true );
-		}
-	}
-
-	/**
-	 * @param $array
-	 * @param $keep_key_assoc
-	 *
-	 * @return array
-	 */
-	private function array_unique_fallback( $array, $keep_key_assoc ) {
-		$duplicate_keys = array();
-		$tmp            = array();
-
-		foreach ( $array as $key => $val ) {
-			// convert objects to arrays, in_array() does not support objects
-			if ( is_object( $val ) ) {
-				$val = (array) $val;
-			}
-
-			if ( ! in_array( $val, $tmp ) ) {
-				$tmp[] = $val;
-			} else {
-				$duplicate_keys[] = $key;
-			}
-		}
-
-		foreach ( $duplicate_keys as $key ) {
-			unset( $array[ $key ] );
-		}
-
-		return $keep_key_assoc ? $array : array_values( $array );
+		return wpml_array_unique( $array, $sort_flags );
 	}
 
 	/**
@@ -154,5 +120,9 @@ class WPML_PHP_Functions {
 	 */
 	public function error_log( $message, $message_type = null, $destination = null, $extra_headers = null ) {
 		return error_log( $message, $message_type, $destination, $extra_headers );
+	}
+
+	public function exit_php() {
+		exit();
 	}
 }
