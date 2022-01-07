@@ -1,37 +1,34 @@
-*Psst — looking for a more complete solution? Check out [SvelteKit](https://kit.svelte.dev), the official framework for building web applications of all sizes, with a beautiful development experience and flexible filesystem-based routing.*
 
-*Looking for a shareable component template instead? You can [use SvelteKit for that as well](https://kit.svelte.dev/docs#packaging) or the older [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+# Bend Theme 
 
----
+Bend Theme for Wordpress - Custom base theme based on [ACF](https://www.advancedcustomfields.com/) and Gutenberg Blocks. Frontend with [Svelte](https://svelte.dev/).
 
-# svelte app
-
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
-
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
-
+## Clone the code
 ```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
+cd /your-wp/wp-content/themes
+git clone git@github.com:hitaboy/bend.git
+cd bend
 ```
+## Activate required plugins 
+Activate ACF PRO plugin. 
+Activate WPML plugin.
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+## Activate the theme
+Activate Bend Theme from wp admin, in Appearance / Themes
 
-
-## Get started
-
+## [Rollup](https://rollupjs.org) for Svelte and SCSS compilation
 Install the dependencies...
-
 ```bash
-cd svelte-app
+cd bend
 npm install
 ```
 
-...then start [Rollup](https://rollupjs.org):
-
+To start [Rollup](https://rollupjs.org) development mode:
 ```bash
-npm run dev
+npm start dev
 ```
+
+*Note that you will need to have [Node.js](https://nodejs.org) installed.*
 
 Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
 
