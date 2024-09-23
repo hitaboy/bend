@@ -1,6 +1,3 @@
-Here’s a detailed **README.md** file template that explains your WordPress theme, installation, usage, and instructions for extending it. It will serve as a solid foundation for your GitHub repository.
-
-```markdown
 # WordPress Full-Site Editing Theme with Svelte, Alpine.js, TailwindCSS, and SCSS
 
 This is a powerful WordPress Full Site Editing (FSE) theme designed to support advanced JavaScript and CSS customization for building modern, interactive, and highly customizable websites. The theme integrates **Svelte**, **Alpine.js**, **TailwindCSS**, and **SCSS** to enhance custom blocks and styles while allowing developers to easily create custom interactions and layouts.
@@ -191,17 +188,3 @@ Contributions are welcome! If you have ideas, feature requests, or find a bug, f
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-```
-
-### Explanation:
-
-- **Features**: Highlight the key features of the theme like full-site editing, Svelte, Alpine.js, TailwindCSS, and SCSS.
-- **Installation**: Clearly explains how to clone, install dependencies, and activate the theme in WordPress.
-- **Usage**: Describes how to use `yarn dev` for development and `yarn build` for production builds.
-- **Creating Custom Blocks**: A dedicated section explaining how to add custom blocks using Svelte, Alpine.js, SCSS, and Tailwind.
-- **Extending**: Shows how to add custom JavaScript and CSS to blocks.
-- **Contributing**: Guidelines on how to contribute to the repository.
-- **License**: Open-source license section.
-
-This **README** file provides a comprehensive explanation of the theme, making it easier for others to use, extend, and contribute. Feel free to adjust the wording and structure to fit your personal project style!
