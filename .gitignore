@@ -1,6 +1,4 @@
 /node_modules/
-/public/build/
 package-lock.json
 yarn.lock
-dist/
 .DS_Store

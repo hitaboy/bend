@@ -1,0 +1,27 @@
+/*
+Theme Name: Bend
+Theme URI: 
+Author: Pere Esteve
+Author URI: 
+Description: Blank wp theme for FSE and Svelte and Tailwind integration
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 5.7
+Version: 
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: bend
+Tags: 
+*/
+
+.is-style-fuller {
+    height: calc( 100vh - 200px );
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 20px; /* Makes the image rounded */
+    border: 5px solid #fc0;
+}
+.is-style-fuller img {
+    
+    object-fit: cover;
+}

@@ -1,0 +1,14 @@
+// Example SCSS styles
+$primary-color: #3490dc;
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: $primary-color;
+}
+
+.custom-class {
+  padding: 1rem;
+  border-radius: 5px;
+  background: white;
+  color: $primary-color;
+}
