@@ -1,6 +1,15 @@
-<div class="bg-green-500">
-    <h1 class="bg-red-500">HOLA RICOLA</h1>
-    <h1 class="bg-orange-500">HOLA RICOLA</h1>
-    <h1 class="bg-red-500">HOLA RICOLA</h1>
-    <h1>HOLA RICOLA</h1>
+<script>
+
+    let show = false
+
+</script>
+
+<div class="bg-orange-500">
+    <button on:click={()=>{
+        show = !show
+    }}>Show me the content</button>
+    {#if show}
+        <div>This is a hidden content</div>
+    {/if}
+    
 </div>

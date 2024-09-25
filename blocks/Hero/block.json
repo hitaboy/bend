@@ -1,0 +1,14 @@
+{
+    "name": "Hero",
+    "title": "Hero block",
+    "description": "Displays a Hero block.",
+    "category": "theme",
+    "apiVersion": 2,
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "blocks/hero/block.php"
+    },
+    "supports": {
+        "anchor": true
+    }
+}

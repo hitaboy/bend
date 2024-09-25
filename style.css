@@ -14,14 +14,3 @@ Text Domain: bend
 Tags: 
 */
 
-.is-style-fuller {
-    height: calc( 100vh - 200px );
-    overflow: hidden;
-    object-fit: cover;
-    border-radius: 20px; /* Makes the image rounded */
-    border: 5px solid #fc0;
-}
-.is-style-fuller img {
-    
-    object-fit: cover;
-}
