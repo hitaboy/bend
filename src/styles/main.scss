@@ -1,11 +1,35 @@
 // Example SCSS styles
 $primary-color: #3490dc;
 
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: $primary-color;
+* {
+  box-sizing: border-box;
 }
 
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+.bendFixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  
+}
+
+.bendBrand {
+  width: 18vw;
+}
+
+@media all and (max-width: 781px) {
+  .wp-block-spacer {
+      flex-basis: 0px !important;
+      height: 0 px !important;
+  }
+}
+
+/*
 .custom-class {
   padding: 1rem;
   border-radius: 5px;
@@ -13,16 +37,15 @@ body {
   color: $primary-color;
 }
 
-
-
 // WP FSE Related
 .is-style-fuller {
   height: calc( 100vh - 200px );
   overflow: hidden;
   object-fit: cover;
-  border-radius: 20px; /* Makes the image rounded */
+  border-radius: 20px; 
   border: 5px solid #fc0;
 }
 .is-style-fuller img {
   object-fit: cover;
 }
+*/

@@ -1,16 +1,20 @@
 <?php
 /**
- * Hero
+ * Masonry
  */
 
 // $data is what we're going to expose to our render template
 $data = array(
-	'example_field' => get_field( 'example_field' ),
-    'another_field' => get_field( 'another_field' )
+	'items' => get_field( 'items' )
 );
 
+// Add the permalink of each item
+foreach( $data['items'] as $key=>$item){
+	$data['items'][$key]['item']->permalink = get_permalink($item['item']->ID);
+}
+
 // Dynamic block ID
-$block_id = 'hero-block-' . $block['id'];
+$block_id = 'masonry-block-' . $block['id'];
 
 // Check if a custom ID is set in the block editor
 if( !empty($block['anchor']) ) {
@@ -27,7 +31,7 @@ if( !empty($block['className']) ) {
  * Pass the block data into the template part
  */ 
 get_template_part(
-	'blocks/hero/template',
+	'blocks/masonry/template',
 	null,
 	array(
 		'block'      => $block,

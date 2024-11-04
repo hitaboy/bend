@@ -26,18 +26,28 @@ This is a powerful WordPress Full Site Editing (FSE) theme designed to support a
 
 ---
 
+## Dependencies
+
+This template asumes that you have ACF ( Advanced Custom Fields ) plugin installed.
+I'ts used to manage the blocks activation and to create custom Field Groups for each block.
+
 ## Installation
 
-To use this theme, you'll need to have **Node.js** and **Yarn** installed on your system.
+To use this theme, you'll need to have **Node.js** and **npm** or **yarn** installed on your system.
 
-1. Clone this repository into your WordPress `wp-content/themes/` directory:
+1. Navigate into the themes folder:
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git wp-content/themes/your-theme-name
+   cd wp-content/themes/
    ```
 
-2. Navigate into the theme folder:
+2. Clone this repository into your WordPress `wp-content/themes/` directory:
    ```bash
-   cd wp-content/themes/your-theme-name
+   git clone https://github.com/hitaboy/bend.git your-theme-name
+   ```
+
+3. Navigate into the new theme folder:
+   ```bash
+   cd wp-content/themes/your-theme-name/
    ```
 
 3. Install dependencies using Yarn:
@@ -53,6 +63,8 @@ To use this theme, you'll need to have **Node.js** and **Yarn** installed on you
 ---
 
 ## Usage
+
+By default bend is configured for development. 
 
 ### Running the Development Server
 
@@ -86,7 +98,7 @@ This theme supports the creation of custom WordPress blocks. You can extend the 
 
 1. Create a new block folder in the `src/blocks/` directory.
    ```bash
-   mkdir src/blocks/my-custom-block
+   mkdir bend/blocks/my-custom-block
    ```
 
 2. Inside your custom block folder, create the following files:
@@ -182,6 +194,16 @@ Contributions are welcome! If you have ideas, feature requests, or find a bug, f
 3. Commit your changes (`git commit -m 'Add my feature'`).
 4. Push to the branch (`git push origin feature/my-feature`).
 5. Open a pull request.
+
+---
+
+## Next steps
+
+Working on:
+
+1. Parallax block
+2. Slider block
+3. Page transitions
 
 ---
 

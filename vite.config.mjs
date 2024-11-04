@@ -8,16 +8,9 @@ export default defineConfig({
     // Enable hydratable
     compilerOptions: {
       // dev: !production,
-      // hydratable: true, // <-- Add this option
+      hydratable: true, // <-- Add this option
     }
   })],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "./src/styles.scss";`, // Automatically imports the SCSS file in each component
-      },
-    },
-  },
   build: {
     outDir: './dist',  // Output directory for production build
     rollupOptions: {
@@ -30,3 +23,13 @@ export default defineConfig({
     },
   },
 });
+
+/*
+css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "./src/styles.scss";`, // Automatically imports the SCSS file in each component
+      },
+    },
+  },
+  */

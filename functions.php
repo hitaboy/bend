@@ -1,7 +1,8 @@
 <?php
 
-// Enqueue the same stylesheet for the block editor (admin area)
-function bend_add_editor_styles() {
+// Enqueue the same stylesheet and scripts for the block editor (admin area)
+/*
+function bend_add_editor_scripts_styles() {
     add_editor_style( get_template_directory_uri() . '/style.css' );
     $isDev = true;
     if($isDev == true){
@@ -17,19 +18,17 @@ function bend_add_editor_styles() {
     }
     
 }
-add_action( 'admin_init', 'bend_add_editor_styles' );
+add_action( 'admin_init', 'bend_add_editor_scripts_styles' );
+*/
 
 
-function enqueue_custom_theme_assets() {
-    $isDev = true;
+function enqueue_custom_bend_assets() {
+    $isDev = true;    
     if($isDev == true){
         if (!is_admin()) {
-    /** 
-    * Get the heck outta here.
-    * No, seriously. Leave.
-    **/
-    wp_dequeue_script('jquery');
-}
+            wp_dequeue_script('jquery');
+        }
+        // wp_enqueue_style('bend-style', get_template_directory_uri() . '/style.css', [], wp_get_theme()->get('Version'));
         // Enqueue Vite's HMR client script
         wp_enqueue_script('vite-js-client', 'http://localhost:5173/@vite/client', [], null, true);
         // Enqueue your main.js for development mode as an ESModule
@@ -41,7 +40,7 @@ function enqueue_custom_theme_assets() {
         wp_enqueue_script('tailwind-svelte-script', get_template_directory_uri() . '/dist/main.js', [], wp_get_theme()->get('Version'), true);
     }
 }
-add_action('wp_enqueue_scripts', 'enqueue_custom_theme_assets');
+add_action('wp_enqueue_scripts', 'enqueue_custom_bend_assets');
 
 // Filter to add 'type="module"' to Vite scripts
 function add_type_module_to_vite_scripts($tag, $handle) {
@@ -51,8 +50,7 @@ function add_type_module_to_vite_scripts($tag, $handle) {
     return $tag;
 }
 
-function mytheme_register_post_featured_image_styles() {
-
+function register_post_featured_image_styles() {
     // Register a 'Fuller' style.
     register_block_style(
         'core/post-featured-image',
@@ -62,14 +60,7 @@ function mytheme_register_post_featured_image_styles() {
         )
     );
 }
-add_action( 'init', 'mytheme_register_post_featured_image_styles' );
-
-
-function my_theme_function() {
-    echo '<div id="app">This is my div!</div>';
-}
-add_action('wp_footer', 'my_theme_function');
-add_action('admin_footer', 'my_theme_function');
+add_action( 'init', 'register_post_featured_image_styles' );
 
 
 function allow_alpine_attributes( $allowedposttags, $context ) {
@@ -80,11 +71,30 @@ function allow_alpine_attributes( $allowedposttags, $context ) {
 
     return $allowedposttags;
 }
-
 // Apply filter for the block editor and posts
 add_filter( 'wp_kses_allowed_post', 'allow_alpine_attributes', 10, 2 );
 
 /**
  * Register ACF Blocks
- */
+*/
+function bend_register_custom_block_category( $categories, $post ) {
+    return array_merge(
+        $categories,
+        array(
+            array(
+                'slug'  => 'bend',
+                'title' => __( 'Bend blocks', 'theme' ),
+                'icon'  => 'star-filled', // Optional, set a custom icon here if needed
+            ),
+        )
+    );
+}
+add_filter( 'block_categories_all', 'bend_register_custom_block_category', 10, 2 );
+
 require get_template_directory() . '/blocks/register-blocks.php';
+
+function cc_mime_types($mimes) {
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');

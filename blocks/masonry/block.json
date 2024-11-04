@@ -1,0 +1,16 @@
+{
+    "name": "masonry",
+    "title": "Masonry block",
+    "description": "Displays a Masonry block.",
+    "category": "bend",
+    "icon": "tagcloud",
+    "apiVersion": 2,
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "blocks/masonry/block.php"
+    },
+    "supports": {
+        "anchor": true, 
+        "mode": false
+    }
+}
