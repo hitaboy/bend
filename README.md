@@ -1,3 +1,5 @@
+![Alt text](screenshot.png)
+
 # WordPress Full-Site Editing Theme with Svelte, Alpine.js, TailwindCSS, and SCSS
 
 This is a powerful WordPress Full Site Editing (FSE) theme designed to support advanced JavaScript and CSS customization for building modern, interactive, and highly customizable websites. The theme integrates **Svelte**, **Alpine.js**, **TailwindCSS**, and **SCSS** to enhance custom blocks and styles while allowing developers to easily create custom interactions and layouts.
